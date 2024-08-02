@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
 
@@ -37,6 +38,18 @@ public class ShortenerController {
                 url.getAccessCount(),
                 url.getDailyAccessAverage(),
                 url.getDateFirstAccess()))).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{urlShort}")
+    public RedirectView redirectToOriginalUrl(@PathVariable String urlShort) {
+        Optional<Url> urlOptional = urlService.findByUrlShort(urlShort);
+        urlService.accessStatistics(urlShort);
+        if (urlOptional.isPresent()) {
+            return new RedirectView(urlOptional.get().getUrlComplete());
+        } else {
+            //TODO: add exception
+            return new RedirectView("");
+        }
     }
 
 }
