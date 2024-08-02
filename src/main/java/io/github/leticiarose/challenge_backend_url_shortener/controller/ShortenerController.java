@@ -17,8 +17,13 @@ import java.util.Optional;
 @RestController
 public class ShortenerController {
 
+    private final UrlService urlService;
+
     @Autowired
-    private UrlService urlService;
+    public ShortenerController(UrlService urlService) {
+        this.urlService = urlService;
+    }
+
 
     @PostMapping("/shorten")
     public ResponseEntity<UrlShortDTO> shortenUrl(@RequestBody UrlRequestDTO requestDTO, HttpServletRequest httpRequest) {
