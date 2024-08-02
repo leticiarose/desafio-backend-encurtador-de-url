@@ -102,13 +102,10 @@ public class ShortenerController {
             )})
     @GetMapping("/{urlShort}")
     public RedirectView redirectToOriginalUrl(@PathVariable String urlShort) {
-        Optional<Url> urlOptional = urlService.findByUrlShort(urlShort);
+        Url infoEntity = urlService.findByUrlShort(urlShort)
+                .orElseThrow(() -> new UrlNotFoundException("The provided URL was not found.", 400));
         urlService.accessStatistics(urlShort);
-        if (urlOptional.isPresent()) {
-            return new RedirectView(urlOptional.get().getUrlComplete());
-        } else {
-            throw new UrlNotFoundException("The provided URL was not found. ", 400);
-        }
+        return new RedirectView(infoEntity.getUrlComplete());
     }
 
 }
