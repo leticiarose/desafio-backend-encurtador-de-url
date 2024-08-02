@@ -48,6 +48,11 @@ public class UrlServiceImpl implements UrlService {
 
     }
 
+    @Override
+    public Optional<Url> findByUrlShort(String urlShort) {
+        return urlRepository.findByUrlShort(urlShort);
+    }
+
     private Double calculatesAverageDailyAccess(Long accessCount, LocalDate dateFirstAccess, LocalDate currentDate) {
         long daysSinceFirstAccess = ChronoUnit.DAYS.between(dateFirstAccess, currentDate);
 
