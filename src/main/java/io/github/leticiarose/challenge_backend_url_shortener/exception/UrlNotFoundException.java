@@ -1,5 +1,8 @@
 package io.github.leticiarose.challenge_backend_url_shortener.exception;
 
+import lombok.Getter;
+
+@Getter
 public class UrlNotFoundException extends RuntimeException {
     private final int errorCode;
 
@@ -36,10 +39,6 @@ public class UrlNotFoundException extends RuntimeException {
     public UrlNotFoundException(String message, Throwable cause, int errorCode) {
         super(message, cause);
         this.errorCode = errorCode;
-    }
-
-    public int getErrorCode() {
-        return errorCode;
     }
 
 }

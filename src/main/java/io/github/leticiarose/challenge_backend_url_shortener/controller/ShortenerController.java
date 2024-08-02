@@ -3,6 +3,7 @@ package io.github.leticiarose.challenge_backend_url_shortener.controller;
 import io.github.leticiarose.challenge_backend_url_shortener.dto.UrlRequestDTO;
 import io.github.leticiarose.challenge_backend_url_shortener.dto.UrlResponseDTO;
 import io.github.leticiarose.challenge_backend_url_shortener.dto.UrlShortDTO;
+import io.github.leticiarose.challenge_backend_url_shortener.exception.UrlNotFoundException;
 import io.github.leticiarose.challenge_backend_url_shortener.model.Url;
 import io.github.leticiarose.challenge_backend_url_shortener.service.UrlService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,8 +48,7 @@ public class ShortenerController {
         if (urlOptional.isPresent()) {
             return new RedirectView(urlOptional.get().getUrlComplete());
         } else {
-            //TODO: add exception
-            return new RedirectView("");
+            throw new UrlNotFoundException("The provided URL was not found. ", 400);
         }
     }
 
