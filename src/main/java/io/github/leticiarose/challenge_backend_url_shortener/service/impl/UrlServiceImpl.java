@@ -45,8 +45,11 @@ public class UrlServiceImpl implements UrlService {
             } else {
                 url.setAccessCount(url.getAccessCount() + 1L);
             }
-            Double average = calculatesAverageDailyAccess(url.getAccessCount(), url.getDateFirstAccess(), LocalDate.now());
-            url.setDailyAccessAverage(average);
+
+            if (url.getDateFirstAccess() != null) {
+                Double average = calculatesAverageDailyAccess(url.getAccessCount(), url.getDateFirstAccess(), LocalDate.now());
+                url.setDailyAccessAverage(average);
+            }
             urlRepository.save(url);
         });
 
