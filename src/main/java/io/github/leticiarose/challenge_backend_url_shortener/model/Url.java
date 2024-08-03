@@ -30,4 +30,12 @@ public class Url {
         this.urlShort = urlShort;
     }
 
+    public Url(String urlComplete, String urlShort, Long accessCount, LocalDate dateFirstAccess, Double dailyAccessAverage) {
+        this.urlComplete = urlComplete;
+        this.urlShort = urlShort;
+        this.accessCount = accessCount;
+        this.dateFirstAccess = dateFirstAccess;
+        this.dailyAccessAverage = dailyAccessAverage;
+    }
+
 }
