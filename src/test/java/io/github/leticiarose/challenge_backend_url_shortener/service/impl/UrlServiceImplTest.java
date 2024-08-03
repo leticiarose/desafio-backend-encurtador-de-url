@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.annotation.Description;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -35,6 +36,7 @@ class UrlServiceImplTest {
     }
 
     @Test
+    @Description(value = "Creates and returns the shortened URL")
     void shouldCreateAndReturnNewShortenedURLTest() {
         when(urlRepository.findByUrlComplete(anyString())).thenReturn(Optional.empty());
 
@@ -45,6 +47,7 @@ class UrlServiceImplTest {
     }
 
     @Test
+    @Description(value = "Returns the existing shortened URL")
     void shouldReturnExistingShortenedURLTest() {
         when(urlRepository.findByUrlComplete(anyString())).thenReturn(Optional.of(url));
 
@@ -56,6 +59,7 @@ class UrlServiceImplTest {
 
 
     @Test
+    @Description(value = "Returns the access statistics when the first access already exists")
     void accessStatisticsWhenExistsFirstAccessTest() {
         when(urlRepository.findByUrlShort(anyString())).thenReturn(Optional.of(url));
 
@@ -66,6 +70,7 @@ class UrlServiceImplTest {
     }
 
     @Test
+    @Description(value = "Retorna as estatisticas de acesso quando é o primeiro acesso")
     void accessStatisticsForFirstAccessTest() {
         url.setAccessCount(0L);
         when(urlRepository.findByUrlShort(anyString())).thenReturn(Optional.of(url));
@@ -77,6 +82,7 @@ class UrlServiceImplTest {
     }
 
     @Test
+    @Description(value = "Find By URL Short")
     void findByUrlShortTest() {
         when(urlRepository.findByUrlShort(anyString())).thenReturn(Optional.of(url));
         assertNotNull(service.findByUrlShort(urlShort));
